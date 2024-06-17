@@ -6,7 +6,7 @@ dotenv.config();
 
 const DB = process.env.DATABASE;
 
-mongoose.set("debug", false);
+// mongoose.set("debug", false);
 
 mongoose
   .connect(DB)

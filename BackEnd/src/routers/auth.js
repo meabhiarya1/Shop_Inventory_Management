@@ -6,6 +6,7 @@ const { login, passwordChange } = require("../controllers/authController");
 // Login Route
 router.post("/login", login);
 
+
 // Password Change Route
 router.post(
   "/passwordchange",

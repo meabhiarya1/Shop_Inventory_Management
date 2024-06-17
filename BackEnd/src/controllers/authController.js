@@ -1,4 +1,5 @@
 const User = require("../models/userSchema");
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { validationResult } = require("express-validator");
 
@@ -14,7 +15,12 @@ const login = async (req, res) => {
 
     // Compare the provided password with the hashed password
     const isMatch = await bcrypt.compare(password, user.password);
+    const token = await user.generateAuthToken();
 
+    res.cookie("token", token, {
+      expires: new Date(Date.now() + 2592000),
+      httpOnly: true,
+    });
     if (!isMatch) {
       return res.status(400).json({ error: "Invalid Password" });
     }
