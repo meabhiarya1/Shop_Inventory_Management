@@ -20,22 +20,22 @@ const Navbar = () => {
 
   return (
     <header className="">
-      <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-start md:justify-start bg-gray-200 p-4 md:p-6 rounded-lg shadow">
+      <div className="mx-auto w-full">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-start bg-gray-200 px-4 md:p-6 rounded-lg shadow">
           {/* Left navbar */}
 
           <div className="md:mb-4 text-center md:text-left w-full">
             <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-              Welcome Back, Barry!
+              Welcome Back, Avi!
             </h1>
             <p className="mt-1.5 text-sm text-gray-500">
-              Let's write a new blog post! 🎉
+              Let's check the shop inventory! 🎉
             </p>
           </div>
 
           {/* Right navbar */}
 
-          <div className="flex justify-between md:justify-end md:items-center md:space-x-4 w-full mt-4">
+          <div className="flex justify-between md:justify-end md:items-center md:space-x-4 w-full my-4">
             {/* Store selector */}
             <div className="relative mb-2 sm:mb-0">
               <div className="inline-flex items-center overflow-hidden rounded-md border bg-white">
@@ -45,7 +45,7 @@ const Navbar = () => {
                 >
                   Select Store
                 </a>
-                <button
+                <button 
                   className="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700"
                   onClick={toggleDropdown}
                 >
