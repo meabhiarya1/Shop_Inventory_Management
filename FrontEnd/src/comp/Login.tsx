@@ -2,13 +2,17 @@ import { useState } from "react";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post("http://localhost:5000/login", {
         username: username,
@@ -16,12 +20,18 @@ const Login = () => {
       });
       toast.success("Login successful!");
       console.log("Login successful:", response.data);
+      setLoading(false);
+      navigate("/dashboard");
       // Handle successful login (e.g., save token, redirect, etc.)
     } catch (error) {
       toast.error("Error logging in. Please try again.");
       console.error("Error logging in:", error);
+      setLoading(false);
       // Handle error (e.g., display error message)
     }
+
+    setPassword("");
+    setUsername("");
   };
 
   return (
@@ -60,11 +70,22 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
+            disabled={loading ? true : false}
+            className={`w-full bg-[#FF9F43] text-white py-2 rounded-lg hover:bg-blue-900 transition duration-200 ${
+              loading ? "opacity-50 cursor-not-allowed" : ""
+            }`}
           >
-            Login
+            {loading ? (
+              <div className="flex items-center justify-center">
+                <span className="mr-2">Loading...</span>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+              </div>
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
       </div>
