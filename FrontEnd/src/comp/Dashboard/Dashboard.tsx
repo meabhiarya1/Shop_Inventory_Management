@@ -1,6 +1,10 @@
-import DoughnutChart from "./DoughnutChart";
+import { useState } from "react";
+import DoughnutChart from "../Dashboard/DoughnutChart";
+import AddProductModal from "./AddProductModal";
 
 const Dashboard = () => {
+  const [openAddProductModal, setOpenAddProductModal] = useState(false);
+
   return (
     <div className="mx-auto w-full p-8 ">
       {/* upper div */}
@@ -15,7 +19,10 @@ const Dashboard = () => {
 
         {/* Add New Product Button*/}
         <div className="flex items-center my-4">
-          <button className="p-2 bg-[#FF9F43] text-white font-medium rounded-lg">
+          <button
+            className="p-2 bg-[#FF9F43] text-white font-medium rounded-lg"
+            onClick={() => setOpenAddProductModal(true)}
+          >
             Add New Product
           </button>
         </div>
@@ -341,12 +348,17 @@ const Dashboard = () => {
         {/* graphs */}
         <div className="w-full md:w-1/2 flex items-center justify-center px-16 md:mt-0 mt-12">
           {/* <section className="overflow-hidden rounded-2xl shadow-2xl w-full h-full flex items-center justify-end"> */}
-            <div style={{ width: "350px", height: "350px" }}>
-              <DoughnutChart />
-            </div>
+          <div style={{ width: "350px", height: "350px" }}>
+            <DoughnutChart />
+          </div>
           {/* </section> */}
         </div>
       </div>
+
+      <AddProductModal
+        setOpenAddProductModal={setOpenAddProductModal}
+        openAddProductModal={openAddProductModal}
+      />
     </div>
   );
 };
