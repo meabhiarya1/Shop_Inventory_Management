@@ -1,18 +1,36 @@
 import { useState } from "react";
 import DoughnutChart from "../Dashboard/DoughnutChart";
 import AddProductModal from "./AddProductModal";
+import { useMyContext } from "../../context/MyContext";
 
 const Dashboard = () => {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
 
+  const ctx = useMyContext();
+  const themeChanger = ctx.toggleState;
+
   return (
-    <div className="mx-auto w-full p-8 ">
+    <div
+      className={`mx-auto w-full h-screen p-8 ${
+        themeChanger ? "bg-white " : "bg-[#1c1c44]"
+      }`}
+    >
       {/* upper div */}
       <div className="flex justify-between">
         {/* Product List */}
         <div className="flex flex-col py-4">
-          <span className="text-xl font-bold">Product List</span>
-          <span className="mt-1.5 text-sm text-gray-500">
+          <span
+            className={`text-xl font-bold ${
+              themeChanger ? "text-black" : "text-gray-200"
+            }`}
+          >
+            Product List
+          </span>
+          <span
+            className={`mt-1.5 text-sm  ${
+              themeChanger ? "text-black" : "text-gray-200"
+            }`}
+          >
             Manage your products
           </span>
         </div>
@@ -29,7 +47,9 @@ const Dashboard = () => {
       </div>
 
       {/* middle div */}
-      <div className="bg-white border border-gray-200 w-full md:w-1/2 rounded-md shadow-sm mt-7">
+      <div
+        className={`bg-white border border-gray-200 w-full md:w-1/2 rounded-md shadow-sm mt-7`}
+      >
         {/* Search box */}
         <div className="relative">
           <label htmlFor="Search" className="sr-only">
@@ -41,7 +61,9 @@ const Dashboard = () => {
             type="text"
             id="Search"
             placeholder="Search for..."
-            className="w-full rounded-md border border-gray-300 py-2.5 pe-10 px-4 shadow-sm sm:text-sm"
+            className={`w-full rounded-md border  py-2.5 pe-10 px-4 shadow-sm sm:text-sm ${
+              themeChanger ? "border-gray-300 bg-white " : "bg-[#1c1c44] border-[#454586]"
+            }`}
           />
 
           <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
@@ -67,15 +89,19 @@ const Dashboard = () => {
       </div>
 
       {/* seprator */}
-      <span className="flex items-center w-full my-8">
-        <span className="h-px flex-1 bg-gray-200"></span>
+      <span className="flex items-center w-full my-8 ">
+        <span
+          className={`h-px flex-1 ${
+            themeChanger ? "bg-[#c8c8ca]" : "bg-[#47478b] "
+          }`}
+        ></span>
       </span>
 
       {/* last div */}
       <div className="flex flex-col md:flex-row">
         {/* products */}
-        <div className="w-full md:w-1/2">
-          <div className="rounded-lg border border-gray-200">
+        <div className="w-full md:w-1/2 ">
+          <div className="rounded-lg border border-gray-200 ">
             <div className="overflow-x-auto rounded-t-lg">
               <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead className="ltr:text-left rtl:text-right">

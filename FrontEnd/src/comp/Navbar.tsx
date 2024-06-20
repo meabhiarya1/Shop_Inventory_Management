@@ -1,8 +1,16 @@
 import { useState } from "react";
+import { useMyContext } from "../context/MyContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenShop, setIsOpenShop] = useState(false);
+  
+  const ctx = useMyContext();
+  const themeChanger = ctx.toggleState;
+
+  const handleToggle = () => {
+    ctx.toggleStateHandler();
+  };
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -21,14 +29,26 @@ const Navbar = () => {
   return (
     <header className="">
       <div className="mx-auto w-full">
-        <div className="flex flex-col md:flex-row md:items-start md:justify-start bg-gray-200 px-4 md:p-6 rounded-lg shadow">
+        <div
+          className={`flex flex-col md:flex-row md:items-start md:justify-start ${
+            themeChanger ? "bg-gray-200" : "bg-[#141432]"
+          } px-4 md:p-6 shadow`}
+        >
           {/* Left navbar */}
 
           <div className="md:mb-4 text-center md:text-left w-full">
-            <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+            <h1
+              className={`text-2xl font-bold ${
+                themeChanger ? "text-gray-900" : "text-gray-200"
+              } sm:text-3xl`}
+            >
               Welcome Back, Avi!
             </h1>
-            <p className="mt-1.5 text-sm text-gray-500">
+            <p
+              className={`mt-1.5 text-sm ${
+                themeChanger ? "text-gray-900" : "text-gray-200"
+              }`}
+            >
               Let's check the shop inventory! 🎉
             </p>
           </div>
@@ -45,7 +65,7 @@ const Navbar = () => {
                 >
                   Select Store
                 </a>
-                <button 
+                <button
                   className="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700"
                   onClick={toggleDropdown}
                 >
@@ -129,24 +149,40 @@ const Navbar = () => {
                   className="absolute end-0 z-10 mt-2 w-56 rounded-md border border-gray-100 bg-white shadow-lg"
                   role="menu"
                 >
-                  <div className="p-2">
+                  <div className="p-2 flex flex-col">
                     <a
                       href="#"
-                      className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                      className="block w-full rounded-lg pl-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                       role="menuitem"
                     >
                       My Profile
                     </a>
                     <a
                       href="#"
-                      className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                      className="block w-full rounded-lg pl-2 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
                       role="menuitem"
                     >
                       Settings
                     </a>
+                    <div className="flex items-center pl-2 py-2">
+                      {/* toggle button */}
+                      <label
+                        htmlFor="AcceptConditions"
+                        className="relative inline-block h-6 w-12 cursor-pointer rounded-full bg-gray-300 transition [-webkit-tap-highlight-color:_transparent] has-[:checked]:bg-green-500"
+                      >
+                        <input
+                          type="checkbox"
+                          id="AcceptConditions"
+                          className="peer sr-only"
+                          onChange={handleToggle}
+                        />
+                        <span className="absolute inset-y-0 start-0 m-1 size-4 rounded-full bg-white transition-all peer-checked:start-6"></span>
+                      </label>
+                    </div>
+
                     <button
                       type="submit"
-                      className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50"
+                      className="flex w-full items-center gap-2 rounded-lg py-2 pl-2 text-sm text-red-700 hover:bg-red-50"
                       role="menuitem"
                     >
                       Logout
@@ -156,7 +192,7 @@ const Navbar = () => {
               )}
             </div>
           </div>
-        </div>  
+        </div>
       </div>
     </header>
   );

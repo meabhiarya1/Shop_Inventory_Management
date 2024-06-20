@@ -1,8 +1,13 @@
-const AddProductModal = ({ setOpenAddProductModal, openAddProductModal }) => {
+const AddProductModal = ({ setOpenAddProductModal, openAddProductModal }: any) => {
   return (
     <div>
       {openAddProductModal && (
-        <div className="fixed z-50 inset-0 overflow-y-auto">
+        <div
+          className="fixed z-50 inset-0 overflow-y-auto"
+          onClick={() => {
+            setOpenAddProductModal(false);
+          }}
+        >
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             {/* Background overlay */}
             <div
@@ -140,7 +145,7 @@ const AddProductModal = ({ setOpenAddProductModal, openAddProductModal }) => {
                                   </svg>
                                 </button>
                               </div>
-                              
+
                               {/* dropDown */}
                               {/* <div
                                 className="absolute right-0 z-10 mt-2 w-28 rounded-md border border-gray-100 bg-white shadow-lg"
@@ -217,7 +222,7 @@ const AddProductModal = ({ setOpenAddProductModal, openAddProductModal }) => {
                                   </svg>
                                 </button>
                               </div>
-                              
+
                               {/* dropDown */}
                               {/* <div
                                 className="absolute right-0 z-10 mt-2 w-28 rounded-md border border-gray-100 bg-white shadow-lg"
@@ -294,7 +299,7 @@ const AddProductModal = ({ setOpenAddProductModal, openAddProductModal }) => {
                                   </svg>
                                 </button>
                               </div>
-                              
+
                               {/* dropDown */}
                               {/* <div
                                 className="absolute right-0 z-10 mt-2 w-28 rounded-md border border-gray-100 bg-white shadow-lg"
@@ -352,7 +357,7 @@ const AddProductModal = ({ setOpenAddProductModal, openAddProductModal }) => {
                             />
                           </div>
                           {/* Size */}
-                          <div className="w-full sm:w-1/2 px-2">
+                          <div className="w-full sm:w-1/2 px-2 my-2 sm:my-0">
                             <label className="block text-gray-700 text-sm font-bold mb-2">
                               Size
                             </label>
@@ -361,26 +366,35 @@ const AddProductModal = ({ setOpenAddProductModal, openAddProductModal }) => {
                                 type="text"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 required
+                                placeholder="H"
                               />
                               <input
                                 type="text"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 required
+                                placeholder="W"
                               />
                               <input
                                 type="text"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 required
+                                placeholder="B"
+                              />
+                              <input
+                                type="text"
+                                className="shadow appearance-none border rounded w-full py-2 px-1.5 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                required
+                                placeholder="WT."
                               />
                             </div>
                           </div>
                         </div>
 
                         {/* Save & Cancel */}
-                        <div className="flex justify-end py-3 px-3">
+                        <div className="flex md:justify-end py-3 px-3 justify-between">
                           <button
                             type="submit"
-                            className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:w-auto sm:text-sm"
+                            className="inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#FF9F43] text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:w-auto sm:text-sm"
                           >
                             Save
                           </button>
