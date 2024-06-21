@@ -9,7 +9,8 @@ import {
 import MyProvider from "./context/MyProvider";
 import Login from "./comp/Login";
 import Navbar from "./comp/Navbar";
-import Dashboard from "./comp/Dashboard/Dashboard";
+import Dashboard from "./comp/AdminDashboard/Dashboard";
+import SalesDashboard from "./comp/SalesDashboard/Dashboard";
 
 const App: React.FC = () => {
   return (
@@ -28,6 +29,14 @@ const App: React.FC = () => {
             element={
               <WithNavbar>
                 <Dashboard />
+              </WithNavbar>
+            }
+          />
+          <Route
+            path="/sales"
+            element={
+              <WithNavbar>
+                <SalesDashboard />
               </WithNavbar>
             }
           />

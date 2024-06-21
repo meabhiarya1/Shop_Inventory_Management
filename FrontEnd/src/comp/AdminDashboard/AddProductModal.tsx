@@ -4,15 +4,16 @@ const AddProductModal = ({ setOpenAddProductModal, openAddProductModal }: any) =
       {openAddProductModal && (
         <div
           className="fixed z-50 inset-0 overflow-y-auto"
-          onClick={() => {
-            setOpenAddProductModal(false);
-          }}
+         
         >
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             {/* Background overlay */}
             <div
               className="fixed inset-0 transition-opacity"
               aria-hidden="true"
+              onClick={() => {
+                setOpenAddProductModal(false);
+              }}
             >
               <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
             </div>
@@ -359,7 +360,7 @@ const AddProductModal = ({ setOpenAddProductModal, openAddProductModal }: any) =
                           {/* Size */}
                           <div className="w-full sm:w-1/2 px-2 my-2 sm:my-0">
                             <label className="block text-gray-700 text-sm font-bold mb-2">
-                              Size
+                              Size/Weight
                             </label>
                             <div className="flex gap-3">
                               <input

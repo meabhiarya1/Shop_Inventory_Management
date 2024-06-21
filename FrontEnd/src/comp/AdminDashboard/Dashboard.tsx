@@ -1,7 +1,9 @@
 import { useState } from "react";
-import DoughnutChart from "../Dashboard/DoughnutChart";
+import DoughnutChart from "../AdminDashboard/DoughnutChart";
 import AddProductModal from "./AddProductModal";
 import { useMyContext } from "../../context/MyContext";
+import { MdEditSquare } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 
 const Dashboard = () => {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
@@ -61,8 +63,10 @@ const Dashboard = () => {
             type="text"
             id="Search"
             placeholder="Search for..."
-            className={`w-full rounded-md border  py-2.5 pe-10 px-4 shadow-sm sm:text-sm ${
-              themeChanger ? "border-gray-300 bg-white " : "bg-[#1c1c44] border-[#454586]"
+            className={`w-full rounded-md border py-2.5 pe-10 px-4 shadow-sm sm:text-sm ${
+              themeChanger
+                ? "border-gray-300 bg-white "
+                : "bg-[#1c1c44] border-[#454586] text-slate-300"
             }`}
           />
 
@@ -107,183 +111,51 @@ const Dashboard = () => {
                 <thead className="ltr:text-left rtl:text-right">
                   <tr>
                     <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Name
+                      Brand
                     </th>
                     <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Date of Birth
+                      Category
                     </th>
                     <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Role
+                      Type
                     </th>
                     <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Salary
+                      Quantity
+                    </th>
+                    <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                      Size/Weight
+                    </th>
+                    <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                      Edit
+                    </th>
+                    <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
+                      Delete
                     </th>
                   </tr>
                 </thead>
 
-                <tbody className="divide-y divide-gray-200">
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      John Doe
+                <tbody className="divide-y divide-gray-200 bg-[#141432] text-center  ">
+                  <tr className="">
+                    <td className="  whitespace-nowrap px-4 py-2 font-medium text-slate-300 ">
+                      PLYWOOD
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      24/05/1995
+                    <td className=" whitespace-nowrap px-4 py-2 font-medium text-slate-300 ">
+                      NARYANI
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      Web Developer
+                    <td className="  whitespace-nowrap px-4 py-2 font-medium text-slate-300 ">
+                      WATERPROOF
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      $120,000
+                    <td className=" whitespace-nowrap px-4 py-2 font-medium text-slate-300 ">
+                      10
                     </td>
-                  </tr>
-
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Jane Doe
+                    <td className=" whitespace-nowrap px-4 py-2 font-medium text-slate-300 ">
+                      7ft * 4ft * 12mm
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      04/11/1980
+                    <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 flex justify-center">
+                      <MdEditSquare className="text-[#6666a8] " />
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      Web Designer
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      $100,000
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Gary Barlow
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      24/05/1995
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      Singer
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      $20,000
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Gary Barlow
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      24/05/1995
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      Singer
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      $20,000
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Gary Barlow
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      24/05/1995
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      Singer
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      $20,000
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Gary Barlow
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      24/05/1995
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      Singer
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      $20,000
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Gary Barlow
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      24/05/1995
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      Singer
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      $20,000
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Gary Barlow
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      24/05/1995
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      Singer
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      $20,000
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Gary Barlow
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      24/05/1995
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      Singer
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      $20,000
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Gary Barlow
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      24/05/1995
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      Singer
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      $20,000
-                    </td>
-                  </tr>
-
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Gary Barlow
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      24/05/1995
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      Singer
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 text-gray-700">
-                      $20,000
+                    <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 ">
+                      <MdDelete className="text-red-500 items-center flex flex-row justify-center" />
                     </td>
                   </tr>
 
@@ -324,7 +196,7 @@ const Dashboard = () => {
                   </a>
                 </li>
 
-                <li className="block size-8 rounded border-blue-600 bg-blue-600 text-center leading-8 text-white">
+                <li className="block size-8 rounded border-blue-600 bg-[#6666a8] text-center leading-8 text-white">
                   2
                 </li>
 
