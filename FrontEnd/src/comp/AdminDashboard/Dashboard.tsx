@@ -13,7 +13,7 @@ const Dashboard = () => {
 
   return (
     <div
-      className={`mx-auto w-full h-screen p-8 ${
+      className={`mx-auto w-full h-full p-8 ${
         themeChanger ? "bg-white " : "bg-[#1c1c44]"
       }`}
     >
