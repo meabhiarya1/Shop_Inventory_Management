@@ -104,8 +104,8 @@ const Dashboard = () => {
       {/* last div */}
       <div className="flex flex-col md:flex-row">
         {/* products */}
-        <div className="w-full md:w-1/2 ">
-          <div className="rounded-lg border border-gray-200 ">
+        <div className="w-full md:w-1/2">
+          <div className="rounded-lg border border-gray-200">
             <div className="overflow-x-auto rounded-t-lg">
               <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead className="ltr:text-left rtl:text-right">
@@ -134,28 +134,28 @@ const Dashboard = () => {
                   </tr>
                 </thead>
 
-                <tbody className="divide-y divide-gray-200 bg-[#141432] text-center  ">
-                  <tr className="">
-                    <td className="  whitespace-nowrap px-4 py-2 font-medium text-slate-300 ">
+                <tbody className="divide-y divide-gray-200 bg-[#141432] text-center">
+                  <tr>
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300 text-ellipsis w-2">
+                      NARYANI NARYANINARYANINARYANINARYANINARYANINARYANI
+                    </td>
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
                       PLYWOOD
                     </td>
-                    <td className=" whitespace-nowrap px-4 py-2 font-medium text-slate-300 ">
-                      NARYANI
-                    </td>
-                    <td className="  whitespace-nowrap px-4 py-2 font-medium text-slate-300 ">
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
                       WATERPROOF
                     </td>
-                    <td className=" whitespace-nowrap px-4 py-2 font-medium text-slate-300 ">
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
                       10
                     </td>
-                    <td className=" whitespace-nowrap px-4 py-2 font-medium text-slate-300 ">
+                    <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
                       7ft * 4ft * 12mm
                     </td>
-                    <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 flex justify-center">
-                      <MdEditSquare className="text-[#6666a8] " />
+                    <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 justify-center flex">
+                      <MdEditSquare className="text-[#6666a8]" />
                     </td>
-                    <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 ">
-                      <MdDelete className="text-red-500 items-center flex flex-row justify-center" />
+                    <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 mr-8 justify-center items-center text-center w-4">
+                      <MdDelete className="text-red-500 ml-4" />
                     </td>
                   </tr>
 
@@ -232,7 +232,7 @@ const Dashboard = () => {
                     >
                       <path
                         fillRule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 01-1.414 0z"
                         clipRule="evenodd"
                       />
                     </svg>
