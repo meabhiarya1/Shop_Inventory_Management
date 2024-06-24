@@ -1,95 +1,34 @@
-import { useState } from "react";
-import DoughnutChart from "../AdminDashboard/DoughnutChart";
-import AddProductModal from "./AddProductModal";
 import { useMyContext } from "../../context/MyContext";
+import BarChart from "./BarChart";
+import Dates from "./Dates";
+import { FaShoppingCart } from "react-icons/fa";
 import { MdEditSquare } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
 
 const Dashboard = () => {
-  const [openAddProductModal, setOpenAddProductModal] = useState(false);
-
   const ctx = useMyContext();
   const themeChanger = ctx.toggleState;
 
   return (
     <div
       className={`mx-auto w-full h-screen p-8 ${
-        themeChanger ? "bg-white " : "bg-[#1c1c44]"
+        themeChanger ? "bg-white text-black" : "bg-[#1c1c44] text-gray-300"
       }`}
     >
       {/* upper div */}
-      <div className="flex justify-between">
-        {/* Product List */}
-        <div className="flex flex-col py-4">
-          <span
-            className={`text-xl font-bold ${
-              themeChanger ? "text-black" : "text-gray-200"
-            }`}
-          >
-            Product List
-          </span>
-          <span
-            className={`mt-1.5 text-sm  ${
-              themeChanger ? "text-black" : "text-gray-200"
-            }`}
-          >
-            Manage your products
-          </span>
-        </div>
-
-        {/* Add New Product Button*/}
-        <div className="flex items-center my-4">
-          <button
-            className="p-2 bg-[#FF9F43] text-white font-medium rounded-lg"
-            onClick={() => setOpenAddProductModal(true)}
-          >
-            Add New Product
-          </button>
-        </div>
-      </div>
-
-      {/* middle div */}
       <div
-        className={`bg-white border border-gray-200 w-full md:w-1/2 rounded-md shadow-sm mt-7`}
+        className={`flex flex-col md:flex-row justify-center md:justify-between`}
       >
-        {/* Search box */}
-        <div className="relative">
-          <label htmlFor="Search" className="sr-only">
-            {" "}
-            Search{" "}
-          </label>
-
-          <input
-            type="text"
-            id="Search"
-            placeholder="Search for..."
-            className={`w-full rounded-md border py-2.5 pe-10 px-4 shadow-sm sm:text-sm ${
-              themeChanger
-                ? "border-gray-300 bg-white "
-                : "bg-[#1c1c44] border-[#454586] text-slate-300"
-            }`}
-          />
-
-          <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
-            <button type="button" className="text-gray-600 hover:text-gray-500">
-              <span className="sr-only">Search</span>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="h-4 w-4"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                />
-              </svg>
-            </button>
+        {/* Product List */}
+        <div className="flex flex-col py-4 md:items-start items-center">
+          <span className={`text-xl font-bold`}>
+            Hi Avi, Track the Sales Eaisly...
           </span>
+          <span className={`mt-1.5 text-sm flex `}>Track your products</span>
         </div>
+
+        {/* Dates */}
+        <Dates />
       </div>
 
       {/* seprator */}
@@ -102,10 +41,10 @@ const Dashboard = () => {
       </span>
 
       {/* last div */}
-      <div className="flex flex-col md:flex-row">
+      <div className="flex flex-col lg:flex-row gap-8 ">
         {/* products */}
-        <div className="w-full md:w-1/2">
-          <div className="rounded-lg border border-gray-200">
+        <div className="w-full lg:w-1/2 my-4 md:my-0 ">
+          <div className="rounded-lg border border-gray-200 ">
             <div className="overflow-x-auto rounded-t-lg">
               <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead className="ltr:text-left rtl:text-right">
@@ -125,37 +64,28 @@ const Dashboard = () => {
                     <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                       Size/Weight
                     </th>
-                    <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Edit
-                    </th>
-                    <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                      Delete
-                    </th>
                   </tr>
                 </thead>
 
-                <tbody className="divide-y divide-gray-200 bg-[#141432] text-center">
+                <tbody className="divide-y divide-gray-200 bg-[#141432]">
                   <tr>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300 text-ellipsis w-2">
-                      NARYANI NARYANINARYANINARYANINARYANINARYANINARYANI
-                    </td>
                     <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
-                      PLYWOOD
+                      John Doe
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
-                      WATERPROOF
+                    <td className="whitespace-nowrap px-4 py-2 text-slate-300">
+                      24/05/1995
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
-                      10
+                    <td className="whitespace-nowrap px-4 py-2 text-slate-300">
+                      Web Developer
                     </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
-                      7ft * 4ft * 12mm
+                    <td className="whitespace-nowrap px-4 py-2 text-slate-300">
+                      $120,000
                     </td>
-                    <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 justify-center flex">
-                      <MdEditSquare className="text-[#6666a8]" />
+                    <td className="whitespace-nowrap px-4 py-2 text-slate-300">
+                      $120,000
                     </td>
-                    <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 mr-8 justify-center items-center text-center w-4">
-                      <MdDelete className="text-red-500 ml-4" />
+                    <td className="whitespace-nowrap text-2xl items-center justify-center text-gray-700 cursor-pointer p-2">
+                      <FaShoppingCart className="text-[#6666a8]" />
                     </td>
                   </tr>
 
@@ -164,6 +94,7 @@ const Dashboard = () => {
               </table>
             </div>
 
+            {/* paging */}
             <div className="rounded-b-lg border-t border-gray-200 px-4 py-2">
               <ol className="flex justify-end gap-1 text-xs font-medium">
                 <li>
@@ -232,7 +163,7 @@ const Dashboard = () => {
                     >
                       <path
                         fillRule="evenodd"
-                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 01-1.414 0z"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
                         clipRule="evenodd"
                       />
                     </svg>
@@ -244,19 +175,14 @@ const Dashboard = () => {
         </div>
 
         {/* graphs */}
-        <div className="w-full md:w-1/2 flex items-center justify-center px-16 md:mt-0 mt-12">
-          {/* <section className="overflow-hidden rounded-2xl shadow-2xl w-full h-full flex items-center justify-end"> */}
-          <div style={{ width: "350px", height: "350px" }}>
-            <DoughnutChart />
-          </div>
-          {/* </section> */}
+        <div className="w-full lg:w-1/2">
+          <section className="overflow-hidden rounded-2xl shadow-2xl w-full h-full flex items-center justify-center">
+            <div className="hidden sm:block md:w-[750px] md:h-[350px] sm:w-[600px]">
+              <BarChart />
+            </div>
+          </section>
         </div>
       </div>
-
-      <AddProductModal
-        setOpenAddProductModal={setOpenAddProductModal}
-        openAddProductModal={openAddProductModal}
-      />
     </div>
   );
 };

@@ -9,8 +9,9 @@ import {
 import MyProvider from "./context/MyProvider";
 import Login from "./comp/Login";
 import Navbar from "./comp/Navbar";
-import Dashboard from "./comp/AdminDashboard/Dashboard";
-import SalesDashboard from "./comp/SalesDashboard/Dashboard";
+import BuyDashboard from "./comp/BuyDashboard/Dashboard";
+import SellDashboard from "./comp/SellDashboard/Dashboard";
+import TotalSalesDashboard from "./comp/TotalSalesDashboard/Dashboard";
 
 const App: React.FC = () => {
   return (
@@ -25,18 +26,26 @@ const App: React.FC = () => {
 
           {/* Routes that need Navbar */}
           <Route
-            path="/dashboard"
+            path="/dashboard/buy"
             element={
               <WithNavbar>
-                <Dashboard />
+                <BuyDashboard />
               </WithNavbar>
             }
           />
           <Route
-            path="/sales"
+            path="/dashboard/sell"
             element={
               <WithNavbar>
-                <SalesDashboard />
+                <SellDashboard />
+              </WithNavbar>
+            }
+          />
+          <Route
+            path="/dashboard/total-sales"
+            element={
+              <WithNavbar>
+                <TotalSalesDashboard />
               </WithNavbar>
             }
           />

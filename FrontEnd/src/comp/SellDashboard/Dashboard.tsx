@@ -1,6 +1,6 @@
 import { useMyContext } from "../../context/MyContext";
-import BarChart from "../SalesDashboard/BarChart";
-import Dates from "./Dates";
+// import BarChart from "../SalesDashboard/BarChart";
+// import Dates from "./Dates";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdEditSquare } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
@@ -11,20 +11,20 @@ const Dashboard = () => {
 
   return (
     <div
-      className={`mx-auto w-full h-full p-8 ${
+      className={`mx-auto w-full h-screen p-8 ${
         themeChanger ? "bg-white text-black" : "bg-[#1c1c44] text-gray-300"
       }`}
     >
       {/* upper div */}
       <div
-        className={`flex flex-col md:flex-row justify-center md:justify-between `}
+        className={`flex flex-col md:flex-row justify-center `}
       >
         {/* Product List */}
-        <div className="flex flex-col py-4 items-center md:items-start">
+        <div className="flex flex-col py-4 items-center">
           <span className={`text-xl font-bold `}>
             Hi Avi, Here's what's happening with your store today.
           </span>
-          <span className={`mt-1.5 text-sm `}>Manage your products</span>
+          <span className={`mt-1.5 text-sm flex p-2`}>Manage your products</span>
         </div>
 
         {/* Dates */}
@@ -33,7 +33,7 @@ const Dashboard = () => {
 
       {/* middle div */}
       <div
-        className={`bg-white border border-gray-200 w-full lg:w-1/2 rounded-md shadow-sm mt-7`}
+        className={`bg-white border border-gray-200 w-full lg:w-2/3 rounded-md shadow-sm mt-7`}
       >
         {/* Search box */}
         <div className="relative">
@@ -87,7 +87,7 @@ const Dashboard = () => {
       {/* last div */}
       <div className="flex flex-col lg:flex-row gap-8 ">
         {/* products */}
-        <div className="w-full lg:w-1/2 my-4 md:my-0 ">
+        <div className="w-full lg:w-2/3 my-4 md:my-0 ">
           <div className="rounded-lg border border-gray-200 ">
             <div className="overflow-x-auto rounded-t-lg">
               <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
@@ -219,7 +219,7 @@ const Dashboard = () => {
         </div>
 
         {/* cart */}
-        <div className="w-full lg:w-1/2 my-4 md:my-0 ">
+        <div className="w-full lg:w-1/3 my-4 md:my-0 px-0">
           <div className="rounded-lg border border-gray-200 ">
           <div className="overflow-x-auto rounded-t-lg">
               <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
