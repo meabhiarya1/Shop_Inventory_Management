@@ -28,7 +28,7 @@ const Dashboard = () => {
         </div>
 
         {/* Dates */}
-        <Dates />
+        {/* <Dates /> */}
       </div>
 
       {/* middle div */}
@@ -354,13 +354,13 @@ const Dashboard = () => {
         </div>
       </div>
       {/* graphs */}
-      <div className="w-full flex items-center justify-center my-8 py-8">
+      {/* <div className="w-full flex items-center justify-center my-8 py-8"> */}
         {/* <section className="overflow-hidden rounded-2xl shadow-2xl w-full h-full flex items-center justify-end"> */}
-        <div className="hidden sm:block md:w-[750px] md:h-[350px] sm:w-[600px]">
+        {/* <div className="hidden sm:block md:w-[750px] md:h-[350px] sm:w-[600px]">
           <BarChart />
-        </div>
+        </div> */}
         {/* </section> */}
-      </div>
+      {/* </div> */}
     </div>
   );
 };
