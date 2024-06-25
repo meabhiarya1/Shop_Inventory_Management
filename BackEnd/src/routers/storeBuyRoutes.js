@@ -9,7 +9,7 @@ const {
   deleteProduct,
   getAllProductsByStoreName,
   getProductByIdAndStoreName,
-} = require("../controllers/storeController");
+} = require("../controllers/storeBuyController");
 
 router.post("/products", validateProduct, createProduct);
 router.put(

@@ -1,5 +1,5 @@
 const { validationResult } = require("express-validator");
-const Store = require("../models/storeSchema"); // Adjust the path as needed
+const Store = require("../models/storeBuySchema"); // Adjust the path as needed
 
 //CREATE PRODUCT WITH STORE NAME
 exports.createProduct = async (req, res) => {
@@ -155,3 +155,5 @@ exports.deleteProduct = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+

@@ -21,7 +21,7 @@ const Login = () => {
       toast.success("Login successful!");
       console.log("Login successful:", response.data);
       setLoading(false);
-      navigate("/dashboard");
+      navigate("/dashboard/total-sales");
       // Handle successful login (e.g., save token, redirect, etc.)
     } catch (error) {
       toast.error("Error logging in. Please try again.");

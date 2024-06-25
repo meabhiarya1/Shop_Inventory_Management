@@ -14,5 +14,5 @@ const storeSchema = new Schema({
   products: [productSchema],
 });
 
-const Store = mongoose.model("Store", storeSchema);
+const Store = mongoose.model("Store_Buy", storeSchema);
 module.exports = Store;

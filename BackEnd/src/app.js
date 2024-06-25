@@ -13,7 +13,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 require("./db/conn");
 app.use(require("./routers/auth"));
-app.use(require("./routers/storeRoutes"));
+app.use(require("./routers/storeBuyRoutes"));
+app.use(require("./routers/storeSellRoutes"));
 
 const PORT = process.env.PORT || 5000;
 

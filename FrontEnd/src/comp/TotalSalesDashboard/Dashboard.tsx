@@ -2,8 +2,7 @@ import { useMyContext } from "../../context/MyContext";
 import BarChart from "./BarChart";
 import Dates from "./Dates";
 import { FaShoppingCart } from "react-icons/fa";
-import { MdEditSquare } from "react-icons/md";
-import { MdDelete } from "react-icons/md";
+
 
 const Dashboard = () => {
   const ctx = useMyContext();
