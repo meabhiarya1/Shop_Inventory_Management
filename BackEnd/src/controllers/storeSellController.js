@@ -9,8 +9,8 @@ const getDateWithoutTime = (date) => {
 };
 
 // Add products with the current date (without time) to a store
-exports.addProductsToStore = async (req, res) => {
-  const { storeName, products } = req.body;
+exports.sellProductsToStore = async (req, res) => {
+  const { storeName, productsIdArray } = req.body;
 
   try {
     // Generate the current date without time
@@ -62,6 +62,39 @@ exports.addProductsToStore = async (req, res) => {
   } catch (err) {
     console.error("Error adding products to store:", err);
     res.status(500).json({ error: err.message });
+  }
+};
+
+// UPDATE PRODUCT QUANTITY IN STORE BY PRODUCT ID AFTER SELL
+exports.updateProductQuantity = async (req, res) => {
+  const { productIdArray, toUpdateProductQuantityArray, storeName } = req.body;
+
+  try {
+    const store = await Store.findOne({ storeName: storeName.toUpperCase() });
+    if (!store) {
+      return res.status(404).json({ message: "Store not found" });
+    }
+
+    // Loop through the productIdArray to update each product's quantity
+    for (let i = 0; i < productIdArray.length; i++) {
+      const productId = productIdArray[i];
+      const quantity = toUpdateProductQuantityArray[i];
+
+      const product = store.products.id(productId);
+      if (!product) {
+        return res
+          .status(404)
+          .json({ message: `Product with ID ${productId} not found` });
+      }
+
+      // Update the product's quantity
+      product.quantity = quantity;
+    }
+
+    await store.save();
+    res.status(200).json("Quantity Updated Successfully");
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 };
 

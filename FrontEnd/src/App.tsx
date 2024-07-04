@@ -42,7 +42,7 @@ const App: React.FC = () => {
             }
           />
           <Route
-            path="/dashboard/total-sales"
+            path="/dashboard/total/sales"
             element={
               <WithNavbar>
                 <TotalSalesDashboard />

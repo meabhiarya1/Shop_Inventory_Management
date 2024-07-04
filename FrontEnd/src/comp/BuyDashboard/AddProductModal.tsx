@@ -1,11 +1,32 @@
-const AddProductModal = ({ setOpenAddProductModal, openAddProductModal }: any) => {
+import { useState } from "react";
+import OptionsAndSelect from "./OptionsAndSelect";
+
+const AddProductModal = ({
+  setOpenAddProductModal,
+  openAddProductModal,
+}: any) => {
+  const [product, setProduct] = useState({
+    Brand: { selectedType: "", inputvalue: "" },
+    Category: { selectedType: "", inputvalue: "" },
+    Type: { selectedType: "", inputvalue: "" },
+    Store: { selectedType: "", inputvalue: "" },
+    Quantity: "",
+    Size: "",
+  });
+
+  const [productDetails, setProductDetails] = useState({
+    brand: ["Naryani", "BlackBox", "Century", "Add New Brand"],
+    category: ["Plywood", "Add New Category"],
+    type: ["waterproof", "semi-waterproof", "shuttering", "Add New Type"],
+    store: ["Gandhi Chowk", "Station", "Add New Store"],
+  });
+
+  console.log(product)
+
   return (
     <div>
       {openAddProductModal && (
-        <div
-          className="fixed z-50 inset-0 overflow-y-auto"
-         
-        >
+        <div className="fixed z-50 inset-0 overflow-y-auto">
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             {/* Background overlay */}
             <div
@@ -37,313 +58,105 @@ const AddProductModal = ({ setOpenAddProductModal, openAddProductModal }: any) =
                       {/* form to add product */}
                       <form>
                         {/* Brand */}
-                        <div className="flex flex-wrap -mx-2 mb-4">
-                          <div className="w-full sm:w-1/2 px-2 mb-4 sm:mb-0">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
-                              Brand
-                            </label>
-                            <div className="relative">
-                              <div className="inline-flex items-center overflow-hidden rounded-md border bg-white w-full">
-                                <a
-                                  href="#"
-                                  className="border-e px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-700 w-full text-left"
-                                >
-                                  Select Brand
-                                </a>
-                                <button
-                                  className="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700"
-                                  // onClick={toggleDropdown}
-                                >
-                                  <span className="sr-only">Menu</span>
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-4 w-4"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                </button>
-                              </div>
-                              {/* dropDown */}
-
-                              {/* <div
-                                className="absolute right-0 z-10 mt-2 w-28 rounded-md border border-gray-100 bg-white shadow-lg"
-                                role="menu"
-                              >
-                                <div className="p-2">
-                                  <a
-                                    href="#"
-                                    className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                    role="menuitem"
-                                  >
-                                    Store 1
-                                  </a>
-                                  <a
-                                    href="#"
-                                    className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                    role="menuitem"
-                                  >
-                                    Store 2
-                                  </a>
-                                  <a
-                                    href="#"
-                                    className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                    role="menuitem"
-                                  >
-                                    Store 3
-                                  </a>
-                                </div>
-                              </div> */}
-                            </div>
-                          </div>
-
-                          <div className="w-full sm:w-1/2 px-2">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
-                              Brand
-                            </label>
+                        <OptionsAndSelect
+                          setProduct={setProduct}
+                          label={"Brand"}
+                          productDetails={productDetails?.brand}
+                        />
+                        {product?.Brand?.selectedType === "Add New Brand" && (
+                          <div className="w-full px-2 my-4">
                             <input
                               type="text"
-                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-3"
                               required
+                              value={product.Brand?.inputvalue}
+                              onChange={(e) => {
+                                setProduct((prev) => ({
+                                  ...prev,
+                                  Brand: {
+                                    ...prev.Brand,
+                                    inputvalue: e.target.value,
+                                  },
+                                }));
+                              }}
                             />
                           </div>
-                        </div>
+                        )}
                         {/* Category */}
-                        <div className="flex flex-wrap -mx-2 mb-4">
-                          <div className="w-full sm:w-1/2 px-2 mb-4 sm:mb-0">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
-                              Category
-                            </label>
-                            <div className="relative">
-                              <div className="inline-flex items-center overflow-hidden rounded-md border bg-white w-full">
-                                <a
-                                  href="#"
-                                  className="border-e px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-700 w-full text-left"
-                                >
-                                  Select Category
-                                </a>
-                                <button
-                                  className="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700"
-                                  // onClick={toggleDropdown}
-                                >
-                                  <span className="sr-only">Menu</span>
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-4 w-4"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                </button>
-                              </div>
-
-                              {/* dropDown */}
-                              {/* <div
-                                className="absolute right-0 z-10 mt-2 w-28 rounded-md border border-gray-100 bg-white shadow-lg"
-                                role="menu"
-                              >
-                                <div className="p-2">
-                                  <a
-                                    href="#"
-                                    className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                    role="menuitem"
-                                  >
-                                    Store 1
-                                  </a>
-                                  <a
-                                    href="#"
-                                    className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                    role="menuitem"
-                                  >
-                                    Store 2
-                                  </a>
-                                  <a
-                                    href="#"
-                                    className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                    role="menuitem"
-                                  >
-                                    Store 3
-                                  </a>
-                                </div>
-                              </div> */}
-                            </div>
-                          </div>
-
-                          <div className="w-full sm:w-1/2 px-2">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
-                              Category
-                            </label>
+                        <OptionsAndSelect
+                          setProduct={setProduct}
+                          label={"Category"}
+                          productDetails={productDetails?.category}
+                        />
+                         {product?.Category?.selectedType === "Add New Category" && (
+                          <div className="w-full px-2 my-4">
                             <input
                               type="text"
-                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-3"
                               required
+                              value={product.Category?.inputvalue}
+                              onChange={(e) => {
+                                setProduct((prev) => ({
+                                  ...prev,
+                                  Category: {
+                                    ...prev.Category,
+                                    inputvalue: e.target.value,
+                                  },
+                                }));
+                              }}
                             />
                           </div>
-                        </div>
+                        )}
                         {/* Type */}
-                        <div className="flex flex-wrap -mx-2 mb-4">
-                          <div className="w-full sm:w-1/2 px-2 mb-4 sm:mb-0">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
-                              Type
-                            </label>
-                            <div className="relative">
-                              <div className="inline-flex items-center overflow-hidden rounded-md border bg-white w-full">
-                                <a
-                                  href="#"
-                                  className="border-e px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-700 w-full text-left"
-                                >
-                                  Select Type
-                                </a>
-                                <button
-                                  className="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700"
-                                  // onClick={toggleDropdown}
-                                >
-                                  <span className="sr-only">Menu</span>
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-4 w-4"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                </button>
-                              </div>
-
-                              {/* dropDown */}
-                              {/* <div
-                                className="absolute right-0 z-10 mt-2 w-28 rounded-md border border-gray-100 bg-white shadow-lg"
-                                role="menu"
-                              >
-                                <div className="p-2">
-                                  <a
-                                    href="#"
-                                    className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                    role="menuitem"
-                                  >
-                                    Store 1
-                                  </a>
-                                  <a
-                                    href="#"
-                                    className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                    role="menuitem"
-                                  >
-                                    Store 2
-                                  </a>
-                                  <a
-                                    href="#"
-                                    className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                    role="menuitem"
-                                  >
-                                    Store 3
-                                  </a>
-                                </div>
-                              </div> */}
-                            </div>
-                          </div>
-
-                          <div className="w-full sm:w-1/2 px-2">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
-                              Type
-                            </label>
+                        <OptionsAndSelect
+                          setProduct={setProduct}
+                          label={"Type"}
+                          productDetails={productDetails?.type}
+                        />
+                         {product?.Type?.selectedType === "Add New Type" && (
+                          <div className="w-full px-2 my-4">
                             <input
                               type="text"
-                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-3"
                               required
+                              value={product.Type?.inputvalue}
+                              onChange={(e) => {
+                                setProduct((prev) => ({
+                                  ...prev,
+                                  Type: {
+                                    ...prev.Type,
+                                    inputvalue: e.target.value,
+                                  },
+                                }));
+                              }}
                             />
                           </div>
-                        </div>
+                        )}
                         {/* Store */}
-                        <div className="flex flex-wrap -mx-2 mb-4">
-                          <div className="w-full sm:w-1/2 px-2 mb-4 sm:mb-0">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
-                              Store
-                            </label>
-                            <div className="relative">
-                              <div className="inline-flex items-center overflow-hidden rounded-md border bg-white w-full">
-                                <a
-                                  href="#"
-                                  className="border-e px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-700 w-full text-left"
-                                >
-                                  Select Store
-                                </a>
-                                <button
-                                  className="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700"
-                                  // onClick={toggleDropdown}
-                                >
-                                  <span className="sr-only">Menu</span>
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-4 w-4"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                  >
-                                    <path
-                                      fillRule="evenodd"
-                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                      clipRule="evenodd"
-                                    />
-                                  </svg>
-                                </button>
-                              </div>
-
-                              {/* dropDown */}
-                              {/* <div
-                                className="absolute right-0 z-10 mt-2 w-28 rounded-md border border-gray-100 bg-white shadow-lg"
-                                role="menu"
-                              >
-                                <div className="p-2">
-                                  <a
-                                    href="#"
-                                    className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                    role="menuitem"
-                                  >
-                                    Store 1
-                                  </a>
-                                  <a
-                                    href="#"
-                                    className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                    role="menuitem"
-                                  >
-                                    Store 2
-                                  </a>
-                                  <a
-                                    href="#"
-                                    className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
-                                    role="menuitem"
-                                  >
-                                    Store 3
-                                  </a>
-                                </div>
-                              </div> */}
-                            </div>
-                          </div>
-
-                          <div className="w-full sm:w-1/2 px-2">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
-                              Store
-                            </label>
+                        <OptionsAndSelect
+                          setProduct={setProduct}
+                          label={"Store"}
+                          productDetails={productDetails?.store}
+                        />
+                        {product?.Store?.selectedType === "Add New Store" && (
+                          <div className="w-full px-2 my-4">
                             <input
                               type="text"
-                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-3"
                               required
+                              value={product.Store?.inputvalue}
+                              onChange={(e) => {
+                                setProduct((prev) => ({
+                                  ...prev,
+                                  Store: {
+                                    ...prev.Store,
+                                    inputvalue: e.target.value,
+                                  },
+                                }));
+                              }}
                             />
                           </div>
-                        </div>
+                        )}
                         {/* Quantity and Size*/}
                         <div className="flex flex-wrap -mx-2 mb-4">
                           {/* Quantity  */}
@@ -355,8 +168,11 @@ const AddProductModal = ({ setOpenAddProductModal, openAddProductModal }: any) =
                               type="text"
                               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                               required
+                              // onChange={}
                             />
                           </div>
+
+
                           {/* Size */}
                           <div className="w-full sm:w-1/2 px-2 my-2 sm:my-0">
                             <label className="block text-gray-700 text-sm font-bold mb-2">

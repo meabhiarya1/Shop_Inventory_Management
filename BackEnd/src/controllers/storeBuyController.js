@@ -1,7 +1,7 @@
 const { validationResult } = require("express-validator");
 const Store = require("../models/storeBuySchema"); // Adjust the path as needed
 
-//CREATE PRODUCT WITH STORE NAME
+// CREATE PRODUCT WITH STORE NAME
 exports.createProduct = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -103,7 +103,7 @@ exports.getProductByIdAndStoreName = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-};
+}; 
 
 // UPDATE PRODUCT IN STORE BY PRODUCT ID
 exports.updateProduct = async (req, res) => {
