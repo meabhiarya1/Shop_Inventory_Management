@@ -5,6 +5,7 @@ import { createContext, useContext } from 'react';
 interface MyContextType {
   toggleState: boolean;
   toggleStateHandler: () => void;
+  totalProducts:[]
 }
 
 const MyContext = createContext<MyContextType | undefined>(undefined);

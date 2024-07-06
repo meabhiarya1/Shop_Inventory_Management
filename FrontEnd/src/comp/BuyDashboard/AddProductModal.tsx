@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import OptionsAndSelect from "./OptionsAndSelect";
+import axios from "axios";
 
 const AddProductModal = ({
   setOpenAddProductModal,
@@ -9,24 +10,84 @@ const AddProductModal = ({
     Brand: { selectedType: "", inputvalue: "" },
     Category: { selectedType: "", inputvalue: "" },
     Type: { selectedType: "", inputvalue: "" },
-    Store: { selectedType: "", inputvalue: "" },
+    StoreDetails: { selectedType: "", inputvalue: "" },
     Quantity: "",
-    Size: "",
+    Size: { H: "", W: "", B: "", WT: "" },
   });
 
   const [productDetails, setProductDetails] = useState({
-    brand: ["Naryani", "BlackBox", "Century", "Add New Brand"],
-    category: ["Plywood", "Add New Category"],
-    type: ["waterproof", "semi-waterproof", "shuttering", "Add New Type"],
-    store: ["Gandhi Chowk", "Station", "Add New Store"],
+    brand: ["Add New Brand"],
+    category: ["Add New Category"],
+    type: ["Add New Type"],
+    storeDetails: ["Add New Store"],
   });
 
-  console.log(product)
+  useEffect(() => {
+    const fetchProductDetails = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/products/details"
+        );
+        setProductDetails((prev) => ({
+          brand: [
+            ...prev.brand,
+            ...response?.data?.brandNames.filter(
+              (item) => !prev.brand.includes(item)
+            ),
+          ],
+          category: [
+            ...prev.category,
+            ...response?.data?.categoryNames.filter(
+              (item) => !prev.category.includes(item)
+            ),
+          ],
+          type: [
+            ...prev.type,
+            ...response?.data?.typeNames.filter(
+              (item) => !prev.type.includes(item)
+            ),
+          ],
+          storeDetails: [
+            ...prev.storeDetails,
+            ...response?.data?.storeNames.filter(
+              (item) => !prev.storeDetails.includes(item)
+            ),
+          ],
+        }));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchProductDetails();
+  }, [openAddProductModal]);
+
+  //ADD PRODUCT TO DATABASE
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/products",
+        product
+      );
+      setOpenAddProductModal(false);
+      setProduct({
+        Brand: { selectedType: "", inputvalue: "" },
+        Category: { selectedType: "", inputvalue: "" },
+        Type: { selectedType: "", inputvalue: "" },
+        StoreDetails: { selectedType: "", inputvalue: "" },
+        Quantity: "",
+        Size: { H: "", W: "", B: "", WT: "" },
+      });
+    } catch (error) {
+      console.error("There was an error!", error);
+      // Optionally, update the state or UI to reflect error
+    }
+  };
 
   return (
     <div>
       {openAddProductModal && (
-        <div className="fixed z-50 inset-0 overflow-y-auto">
+        <div className="fixed z-50 inset-0">
           <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             {/* Background overlay */}
             <div
@@ -49,14 +110,14 @@ const AddProductModal = ({
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                     <h3
-                      className="text-lg font-medium text-gray-900"
+                      className="text-lg font-medium text-gray-900 flex justify-center"
                       id="modal-title"
                     >
                       Add New Product
                     </h3>
                     <div className="mt-4">
                       {/* form to add product */}
-                      <form>
+                      <form onSubmit={handleSubmit}>
                         {/* Brand */}
                         <OptionsAndSelect
                           setProduct={setProduct}
@@ -88,7 +149,8 @@ const AddProductModal = ({
                           label={"Category"}
                           productDetails={productDetails?.category}
                         />
-                         {product?.Category?.selectedType === "Add New Category" && (
+                        {product?.Category?.selectedType ===
+                          "Add New Category" && (
                           <div className="w-full px-2 my-4">
                             <input
                               type="text"
@@ -113,7 +175,7 @@ const AddProductModal = ({
                           label={"Type"}
                           productDetails={productDetails?.type}
                         />
-                         {product?.Type?.selectedType === "Add New Type" && (
+                        {product?.Type?.selectedType === "Add New Type" && (
                           <div className="w-full px-2 my-4">
                             <input
                               type="text"
@@ -135,21 +197,22 @@ const AddProductModal = ({
                         {/* Store */}
                         <OptionsAndSelect
                           setProduct={setProduct}
-                          label={"Store"}
-                          productDetails={productDetails?.store}
+                          label={"StoreDetails"}
+                          productDetails={productDetails?.storeDetails}
                         />
-                        {product?.Store?.selectedType === "Add New Store" && (
+                        {product?.StoreDetails?.selectedType ===
+                          "Add New Store" && (
                           <div className="w-full px-2 my-4">
                             <input
                               type="text"
                               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mt-3"
                               required
-                              value={product.Store?.inputvalue}
+                              value={product.StoreDetails?.inputvalue}
                               onChange={(e) => {
                                 setProduct((prev) => ({
                                   ...prev,
-                                  Store: {
-                                    ...prev.Store,
+                                  StoreDetails: {
+                                    ...prev.StoreDetails,
                                     inputvalue: e.target.value,
                                   },
                                 }));
@@ -157,10 +220,11 @@ const AddProductModal = ({
                             />
                           </div>
                         )}
+
                         {/* Quantity and Size*/}
-                        <div className="flex flex-wrap -mx-2 mb-4">
-                          {/* Quantity  */}
-                          <div className="w-full sm:w-1/2 px-2">
+                        <div className="flex flex-wrap -mx-2 mb-4 justify-between">
+                          {/* Quantity */}
+                          <div className="w-full sm:w-1/4 px-2 py-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2">
                               Quantity
                             </label>
@@ -168,40 +232,120 @@ const AddProductModal = ({
                               type="text"
                               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                               required
-                              // onChange={}
+                              placeholder="number"
+                              value={product.Quantity}
+                              onChange={(e) => {
+                                // Regex to allow only numbers
+                                const regex = /^[0-9\b]+$/;
+                                if (
+                                  e.target.value === "" ||
+                                  regex.test(e.target.value)
+                                ) {
+                                  setProduct((prev) => ({
+                                    ...prev,
+                                    Quantity: e.target.value,
+                                  }));
+                                }
+                              }}
                             />
                           </div>
 
-
                           {/* Size */}
-                          <div className="w-full sm:w-1/2 px-2 my-2 sm:my-0">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
+                          <div className="w-full sm:w-[75%] my-2 sm:my-0 px-1 py-4">
+                            <label className="text-gray-700 text-sm font-bold mb-2 flex justify-center">
                               Size/Weight
                             </label>
                             <div className="flex gap-3">
                               <input
                                 type="text"
+                                name="Size.H"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                required
-                                placeholder="H"
+                                placeholder="H (ft.)"
+                                value={product.Size.H}
+                                onChange={(e) => {
+                                  // Regex to allow only numbers
+                                  const regex = /^[0-9\b]+$/;
+                                  if (
+                                    e.target.value === "" ||
+                                    regex.test(e.target.value)
+                                  ) {
+                                    setProduct((prev) => ({
+                                      ...prev,
+                                      Size: {
+                                        ...prev.Size,
+                                        H: e.target.value,
+                                      },
+                                    }));
+                                  }
+                                }}
                               />
                               <input
                                 type="text"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                required
-                                placeholder="W"
+                                placeholder="W (ft.)"
+                                name="Size.W"
+                                value={product.Size.W}
+                                onChange={(e) => {
+                                  // Regex to allow only numbers
+                                  const regex = /^[0-9\b]+$/;
+                                  if (
+                                    e.target.value === "" ||
+                                    regex.test(e.target.value)
+                                  ) {
+                                    setProduct((prev) => ({
+                                      ...prev,
+                                      Size: {
+                                        ...prev.Size,
+                                        W: e.target.value,
+                                      },
+                                    }));
+                                  }
+                                }}
                               />
                               <input
                                 type="text"
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                required
-                                placeholder="B"
+                                placeholder="TH mm"
+                                name="Size.B"
+                                value={product.Size.B}
+                                onChange={(e) => {
+                                  // Regex to allow numbers and decimal point
+                                  const regex = /^[0-9\b.]+$/;
+                                  if (
+                                    e.target.value === "" ||
+                                    regex.test(e.target.value)
+                                  ) {
+                                    setProduct((prev) => ({
+                                      ...prev,
+                                      Size: {
+                                        ...prev.Size,
+                                        B: e.target.value,
+                                      },
+                                    }));
+                                  }
+                                }}
                               />
                               <input
                                 type="text"
                                 className="shadow appearance-none border rounded w-full py-2 px-1.5 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                required
-                                placeholder="WT."
+                                placeholder="Wt.(kg)"
+                                value={product.Size.WT}
+                                onChange={(e) => {
+                                  // Regex to allow numbers and decimal point
+                                  const regex = /^[0-9\b]+$/;
+                                  if (
+                                    e.target.value === "" ||
+                                    regex.test(e.target.value)
+                                  ) {
+                                    setProduct((prev) => ({
+                                      ...prev,
+                                      Size: {
+                                        ...prev.Size,
+                                        WT: e.target.value,
+                                      },
+                                    }));
+                                  }
+                                }}
                               />
                             </div>
                           </div>

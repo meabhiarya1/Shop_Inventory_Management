@@ -9,11 +9,11 @@ const OptionsAndSelect = ({ setProduct, label, productDetails }) => {
           {/* DROPDOWN */}
           <div className="inline-flex items-center overflow-hidden rounded-md border bg-white w-full">
             <div
-              className="absolute text-center z-10 mt-2 w-full rounded-md border border-gray-100 bg-white shadow-lg"
+              className="absolute text-center z-10 mt-2 w-full rounded-md border border-gray-100 bg-white shadow-lg "
               role="menu"
             >
               <select
-                className="p-2 w-full"
+                className="p-2 w-full "
                 onChange={(e) => {
                   setProduct((prev) => ({
                     ...prev,
@@ -25,12 +25,12 @@ const OptionsAndSelect = ({ setProduct, label, productDetails }) => {
                 }}
               >
                 <option
-                  className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                  className="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 "
                   // role="menuitem"
-                  value={"Select Brand"}
-                  defaultValue={"Select Brand"}
+                  value={`Select ${label}`}
+                  defaultValue={`Select ${label}`}
                 >
-                  Select Brand
+                  {`Select ${label}`}
                 </option>
 
                 {productDetails.map((item, index) => (

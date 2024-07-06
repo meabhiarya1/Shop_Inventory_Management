@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const User = require("../models/userSchema");
+const Store = require("../models/storeBuySchema")
 
 dotenv.config();
 
@@ -12,6 +13,18 @@ mongoose
   .connect(DB)
   .then(async () => {
     console.log("Connection Successful");
+
+    // try {
+    //   // Drop the collection if it exists
+    //   await Store.collection.drop();
+    //   console.log('Store collection dropped');
+    // } catch (err) {
+    //   if (err.code === 26) {
+    //     console.log('Namespace %s not found', Store.collection.name);
+    //   } else {
+    //     console.error('Error dropping Store collection:', err);
+    //   }
+    // }
 
     // Check if admin exists
     const adminUsername = process.env.ADMIN_USERNAME;

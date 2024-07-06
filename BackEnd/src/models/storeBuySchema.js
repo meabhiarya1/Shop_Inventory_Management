@@ -6,7 +6,10 @@ const productSchema = new Schema({
   category: { type: String, required: true },
   type: { type: String, required: true },
   quantity: { type: Number, required: true },
-  size: { type: String, required: true },
+  height: { type: Number },
+  width: { type: Number },
+  thickness: { type: Number },
+  weight: { type: Number },
 });
 
 const storeSchema = new Schema({

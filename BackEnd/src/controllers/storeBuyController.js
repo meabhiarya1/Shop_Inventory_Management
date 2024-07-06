@@ -1,56 +1,72 @@
-const { validationResult } = require("express-validator");
 const Store = require("../models/storeBuySchema"); // Adjust the path as needed
 
 // CREATE PRODUCT WITH STORE NAME
 exports.createProduct = async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
-  const { storeName, brand, category, type, quantity, size } = req.body;
-
+  const { Brand, Category, Type, Quantity, StoreDetails, Size } = req.body;
   const newProduct = {
-    brand,
-    category,
-    type,
-    quantity: parseInt(quantity, 10),
-    size,
+    brand: Brand.inputvalue
+      ? Brand.inputvalue.toUpperCase()
+      : Brand.selectedType.toUpperCase(),
+    category: Category.inputvalue
+      ? Category.inputvalue.toUpperCase()
+      : Category.selectedType.toUpperCase(),
+    type: Type.inputvalue
+      ? Type.inputvalue.toUpperCase()
+      : Type.selectedType.toUpperCase(),
+    quantity: parseInt(Quantity, 10),
+    height: Number(Size.H),
+    width: Number(Size.W),
+    thickness: Number(Size.B),
+    weight: Number(Size.WT),
   };
+
+  const StoreDetailsData =
+    StoreDetails.inputvalue !== ""
+      ? StoreDetails.inputvalue
+      : StoreDetails.selectedType;
 
   try {
     // Find the store by storeName and add the product
-    const store = await Store.findOne({ storeName: storeName.toUpperCase() });
+    const store = await Store.findOne({
+      storeName: StoreDetailsData.toUpperCase(),
+    });
 
     if (!store) {
       // If the store does not exist, create a new store document with the product
       const newStore = new Store({
-        storeName: storeName.toUpperCase(),
+        storeName: StoreDetailsData.toUpperCase(),
         products: [newProduct],
       });
       await newStore.save();
       return res.status(201).json(newStore);
     } else {
-      const existingProduct = store.products.find(
-        (product) =>
-          product.brand === brand &&
-          product.category === category &&
-          product.type === type &&
-          product.size === size
-      );
+      const existingProduct = store.products.find((product) => {
+        const isSizeMatch =
+          product.height === Number(Size.H) &&
+          product.thickness === Number(Size.B) &&
+          product.width === Number(Size.W);
+
+        const isWeightMatch =
+          product.height === undefined &&
+          product.thickness === undefined &&
+          product.width === undefined
+            ? product.weight === Number(Size.WT)
+            : false;
+
+        return (
+          product.brand === Brand.selectedType.toUpperCase() &&
+          product.category === Category.selectedType.toUpperCase() &&
+          product.type === Type.selectedType.toUpperCase() &&
+          (isSizeMatch || isWeightMatch)
+        );
+      });
 
       if (existingProduct) {
         // If the product exists, update the quantity
-        existingProduct.quantity += parseInt(quantity, 10);
+        existingProduct.quantity += parseInt(Quantity, 10);
       } else {
         // If the product does not exist, add the new product to the products array
-        store.products.push({
-          brand,
-          category,
-          type,
-          quantity: parseInt(quantity, 10),
-          size,
-        });
+        store.products.push(newProduct);
       }
       await store.save();
       return res.status(201).json(store);
@@ -67,6 +83,44 @@ exports.getAllProducts = async (req, res) => {
     res.status(200).json(stores);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+};
+
+// GET ALL DETAILS BRAND CATEGORY TYPE STORENAME
+exports.getAllProductsDetails = async (req, res) => {
+  try {
+    const storeData = await Store.find();
+
+    // Helper function to extract unique values for a given property from the products array
+    const extractUniqueValues = (property) => {
+      return Array.from(
+        new Set(
+          storeData.flatMap((data) => {
+            return data.products.map((productData) => productData[property]);
+          })
+        )
+      );
+    };
+
+    // Extract unique store names
+    const storeNameArray = storeData.map((data) => data.storeName);
+
+    // Extract unique brand, category, and type names
+    const brandNameArray = extractUniqueValues("brand");
+    const categoryNameArray = extractUniqueValues("category");
+    const typeNameArray = extractUniqueValues("type");
+
+    res.status(200).json({
+      storeNames: storeNameArray,
+      brandNames: brandNameArray,
+      categoryNames: categoryNameArray,
+      typeNames: typeNameArray,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "An error occurred while fetching product details.",
+      error: error.message,
+    });
   }
 };
 
@@ -103,7 +157,7 @@ exports.getProductByIdAndStoreName = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-}; 
+};
 
 // UPDATE PRODUCT IN STORE BY PRODUCT ID
 exports.updateProduct = async (req, res) => {
@@ -155,5 +209,3 @@ exports.deleteProduct = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
-

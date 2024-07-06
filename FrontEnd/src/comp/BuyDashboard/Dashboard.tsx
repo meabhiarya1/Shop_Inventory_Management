@@ -7,13 +7,15 @@ import { MdDelete } from "react-icons/md";
 
 const Dashboard = () => {
   const [openAddProductModal, setOpenAddProductModal] = useState(false);
+  const totalProducts = useMyContext().totalProducts;
+
 
   const ctx = useMyContext();
   const themeChanger = ctx.toggleState;
 
   return (
     <div
-      className={`mx-auto w-full h-screen p-8 ${
+      className={`mx-auto w-full h-fit md:h-[100vh] p-8 scrollbar ${
         themeChanger ? "bg-white " : "bg-[#1c1c44]"
       }`}
     >
@@ -102,11 +104,11 @@ const Dashboard = () => {
       </span>
 
       {/* last div */}
-      <div className="flex flex-col md:flex-row">
+      <div className="flex flex-col md:flex-row overflow-y-auto scrollbar">
         {/* products */}
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-1/2 ">
           <div className="rounded-lg border border-gray-200">
-            <div className="overflow-x-auto rounded-t-lg">
+            <div className="overflow-x-auto rounded-t-lg max-h-[50vh]">
               <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
                 <thead className="ltr:text-left rtl:text-right">
                   <tr>
@@ -135,31 +137,35 @@ const Dashboard = () => {
                 </thead>
 
                 <tbody className="divide-y divide-gray-200 bg-[#141432] text-center">
-                  <tr>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300 text-ellipsis w-2">
-                      NARYANI NARYANINARYANINARYANINARYANINARYANINARYANI
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
-                      PLYWOOD
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
-                      WATERPROOF
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
-                      10
-                    </td>
-                    <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
-                      7ft * 4ft * 12mm
-                    </td>
-                    <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 justify-center flex">
-                      <MdEditSquare className="text-[#6666a8]" />
-                    </td>
-                    <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 mr-8 justify-center items-center text-center w-4">
-                      <MdDelete className="text-red-500 ml-4" />
-                    </td>
-                  </tr>
-
-                  {/* Repeat the above rows as needed */}
+                  {totalProducts.map((store, storeIndex) =>
+                    store.products.map((product, productIndex) => (
+                      <tr key={`${store._id}-${productIndex}`}>
+                        <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300 text-ellipsis w-2">
+                          {product.brand}
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
+                          {product.category}
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
+                          {product.type}
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
+                          {product.quantity}
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
+                          {product.height && product.width && product.thickness
+                            ? `${product.height}ft * ${product.width}ft * ${product.thickness}mm`
+                            : `${product.weight}kg`}
+                        </td>
+                        <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 justify-center flex">
+                          <MdEditSquare className="text-[#6666a8]" />
+                        </td>
+                        <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 mr-8 justify-center items-center text-center w-4">
+                          <MdDelete className="text-red-500 ml-4" />
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
