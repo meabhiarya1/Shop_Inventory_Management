@@ -1,12 +1,3 @@
-// /** @type {import('tailwindcss').Config} */
-// export default {
-//   content: ["./src/**/*.{js,jsx,ts,tsx}"],
-//   theme: {
-//     extend: {},
-//   },
-//   plugins: [require("tailwind-scrollbar-hide")],
-// };
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
@@ -14,9 +5,9 @@ export default {
     extend: {
       colors: {
         scrollbar: {
-          track: "#f5f5f5", // Custom track color
-          thumb: "#cccccc", // Custom thumb color
-          thumbHover: "#999999", // Custom thumb hover color
+          track: "#f5f5f5",
+          thumb: "#cccccc",
+          thumbHover: "#999999",
         },
       },
     },

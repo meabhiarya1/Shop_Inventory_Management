@@ -3,6 +3,7 @@ const Store = require("../models/storeBuySchema"); // Adjust the path as needed
 // CREATE PRODUCT WITH STORE NAME
 exports.createProduct = async (req, res) => {
   const { Brand, Category, Type, Quantity, StoreDetails, Size } = req.body;
+
   const newProduct = {
     brand: Brand.inputvalue
       ? Brand.inputvalue.toUpperCase()
@@ -41,24 +42,17 @@ exports.createProduct = async (req, res) => {
       return res.status(201).json(newStore);
     } else {
       const existingProduct = store.products.find((product) => {
-        const isSizeMatch =
-          product.height === Number(Size.H) &&
-          product.thickness === Number(Size.B) &&
-          product.width === Number(Size.W);
-
-        const isWeightMatch =
-          product.height === undefined &&
-          product.thickness === undefined &&
-          product.width === undefined
-            ? product.weight === Number(Size.WT)
-            : false;
-
-        return (
+        if (
           product.brand === Brand.selectedType.toUpperCase() &&
           product.category === Category.selectedType.toUpperCase() &&
           product.type === Type.selectedType.toUpperCase() &&
-          (isSizeMatch || isWeightMatch)
-        );
+          Number(product.height) === Number(Size.H) &&
+          Number(product.width) === Number(Size.W) &&
+          Number(product.thickness) === Number(Size.B) &&
+          Number(product.weight) === Number(Size.WT)
+        ) {
+          return product;
+        }
       });
 
       if (existingProduct) {

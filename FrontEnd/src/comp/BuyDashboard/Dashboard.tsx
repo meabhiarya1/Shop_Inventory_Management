@@ -1,22 +1,25 @@
-import { useState } from "react";
 import DoughnutChart from "../BuyDashboard/DoughnutChart";
 import AddProductModal from "./AddProductModal";
 import { useMyContext } from "../../context/MyContext";
 import { MdEditSquare } from "react-icons/md";
 import { MdDelete } from "react-icons/md";
+import { useEffect } from "react";
 
 const Dashboard = () => {
-  const [openAddProductModal, setOpenAddProductModal] = useState(false);
-  const totalProducts = useMyContext().totalProducts;
+  const {
+    openAddProductModal,
+    setOpenAddProductModal,
+    totalProducts,
+    toggleState,
+    selectedStore,
+  } = useMyContext();
 
-
-  const ctx = useMyContext();
-  const themeChanger = ctx.toggleState;
+  useEffect(()=>{},[totalProducts])
 
   return (
     <div
       className={`mx-auto w-full h-fit md:h-[100vh] p-8 scrollbar ${
-        themeChanger ? "bg-white " : "bg-[#1c1c44]"
+        toggleState ? "bg-white " : "bg-[#1c1c44]"
       }`}
     >
       {/* upper div */}
@@ -25,14 +28,14 @@ const Dashboard = () => {
         <div className="flex flex-col py-4">
           <span
             className={`text-xl font-bold ${
-              themeChanger ? "text-black" : "text-gray-200"
+              toggleState ? "text-black" : "text-gray-200"
             }`}
           >
             Product List
           </span>
           <span
             className={`mt-1.5 text-sm  ${
-              themeChanger ? "text-black" : "text-gray-200"
+              toggleState ? "text-black" : "text-gray-200"
             }`}
           >
             Manage your products
@@ -66,7 +69,7 @@ const Dashboard = () => {
             id="Search"
             placeholder="Search for..."
             className={`w-full rounded-md border py-2.5 pe-10 px-4 shadow-sm sm:text-sm ${
-              themeChanger
+              toggleState
                 ? "border-gray-300 bg-white "
                 : "bg-[#1c1c44] border-[#454586] text-slate-300"
             }`}
@@ -98,7 +101,7 @@ const Dashboard = () => {
       <span className="flex items-center w-full my-8 ">
         <span
           className={`h-px flex-1 ${
-            themeChanger ? "bg-[#c8c8ca]" : "bg-[#47478b] "
+            toggleState ? "bg-[#c8c8ca]" : "bg-[#47478b] "
           }`}
         ></span>
       </span>
@@ -109,9 +112,9 @@ const Dashboard = () => {
         <div className="w-full md:w-1/2 ">
           <div className="rounded-lg border border-gray-200">
             <div className="overflow-x-auto rounded-t-lg max-h-[50vh]">
-              <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
-                <thead className="ltr:text-left rtl:text-right">
-                  <tr>
+              <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm ">
+                <thead className="ltr:text-left rtl:text-right ">
+                  <tr className="">
                     <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
                       Brand
                     </th>
@@ -135,37 +138,34 @@ const Dashboard = () => {
                     </th>
                   </tr>
                 </thead>
-
                 <tbody className="divide-y divide-gray-200 bg-[#141432] text-center">
-                  {totalProducts.map((store, storeIndex) =>
-                    store.products.map((product, productIndex) => (
-                      <tr key={`${store._id}-${productIndex}`}>
-                        <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300 text-ellipsis w-2">
-                          {product.brand}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
-                          {product.category}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
-                          {product.type}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
-                          {product.quantity}
-                        </td>
-                        <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
-                          {product.height && product.width && product.thickness
-                            ? `${product.height}ft * ${product.width}ft * ${product.thickness}mm`
-                            : `${product.weight}kg`}
-                        </td>
-                        <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 justify-center flex">
-                          <MdEditSquare className="text-[#6666a8]" />
-                        </td>
-                        <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 mr-8 justify-center items-center text-center w-4">
-                          <MdDelete className="text-red-500 ml-4" />
-                        </td>
-                      </tr>
-                    ))
-                  )}
+                  {selectedStore?.products?.map((product) => (
+                    <tr key={`${product._id}`}>
+                      <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300 text-ellipsis w-2">
+                        {product.brand}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
+                        {product.category}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
+                        {product.type}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
+                        {product.quantity}
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-2 font-medium text-slate-300">
+                        {product.weight === "0"
+                          ? `${product.height}ft * ${product.width}ft * ${product.thickness}mm`
+                          : `${product.weight}kg`}
+                      </td>
+                      <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 justify-center flex">
+                        <MdEditSquare className="text-[#6666a8]" />
+                      </td>
+                      <td className="whitespace-nowrap text-2xl font-medium text-gray-700 cursor-pointer p-2 mr-8 justify-center items-center text-center w-4">
+                        <MdDelete className="text-red-500 ml-4" />
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -196,31 +196,9 @@ const Dashboard = () => {
                 <li>
                   <a
                     href="#"
-                    className="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900"
+                    className="block size-8 rounded border border-blue-600 bg-[#6666a8] text-center leading-8 text-white"
                   >
                     1
-                  </a>
-                </li>
-
-                <li className="block size-8 rounded border-blue-600 bg-[#6666a8] text-center leading-8 text-white">
-                  2
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    className="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900"
-                  >
-                    3
-                  </a>
-                </li>
-
-                <li>
-                  <a
-                    href="#"
-                    className="block size-8 rounded border border-gray-100 bg-white text-center leading-8 text-gray-900"
-                  >
-                    4
                   </a>
                 </li>
 

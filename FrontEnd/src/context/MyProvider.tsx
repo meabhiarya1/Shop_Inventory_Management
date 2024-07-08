@@ -6,19 +6,22 @@ import axios from "axios";
 const MyProvider: React.FC = ({ children }: any) => {
   const [initialState, setInitialState] = useState({ toggleState: false });
   const [totalProducts, setTotalProducts] = useState([]);
+  const [openAddProductModal, setOpenAddProductModal] = useState(false);
+  const [selectedStore, setSelectedStore] = useState(null);
 
   //FETCHED ALL PRODUCTS
   useEffect(() => {
     const fetcheData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/products");
+        const response = await axios.get(`http://localhost:5000/products/`);
+       
         setTotalProducts(response?.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetcheData();
-  }, [totalProducts]);
+  }, [openAddProductModal]);
 
   const toggleStateHandler = () => {
     setInitialState((prev) => {
@@ -29,6 +32,10 @@ const MyProvider: React.FC = ({ children }: any) => {
     toggleStateHandler: toggleStateHandler,
     toggleState: initialState.toggleState,
     totalProducts: totalProducts,
+    openAddProductModal: openAddProductModal,
+    setOpenAddProductModal: setOpenAddProductModal,
+    selectedStore: selectedStore,
+    setSelectedStore: setSelectedStore,
   };
 
   return <MyContext.Provider value={store}>{children}</MyContext.Provider>;
