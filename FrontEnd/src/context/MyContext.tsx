@@ -7,10 +7,14 @@ interface MyContextType {
   toggleStateHandler: () => void;
   totalProducts: [];
   openAddProductModal: boolean;
-  setOpenAddProductModal: () => void;
+  setOpenAddProductModal: () => {};
   setSelectedStore: () => void;
   selectedStore: [];
   handleStoreSelect: () => void;
+  existingData: {};
+  setExistingData: () => {};
+  isOpenEditModal: boolean;
+  setOpenEditModal: () => {};
 }
 
 const MyContext = createContext<MyContextType | undefined>(undefined);

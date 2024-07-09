@@ -14,12 +14,6 @@ const Navbar = () => {
     selectedStore,
   } = useMyContext();
 
-  useEffect(() => {
-    if (totalProducts.length > 0) {
-      setSelectedStore(totalProducts[0]);
-    }
-  }, [totalProducts]);
-
   useEffect(() => {}, [location]);
 
   const handleToggle = () => {

@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import OptionsAndSelect from "./OptionsAndSelect";
 import axios from "axios";
 import Draggable from "react-draggable";
-import Toastify from "toastify-js";
-import "toastify-js/src/toastify.css";
+import { toast } from "react-toastify";
 
 const AddProductModal = ({
   setOpenAddProductModal,
   openAddProductModal,
+  setSelectedStore,
+  totalProducts,
 }: any) => {
   const [product, setProduct] = useState({
     Brand: { selectedType: "", inputvalue: "" },
@@ -78,28 +79,12 @@ const AddProductModal = ({
         Quantity: "",
         Size: { H: "", W: "", B: "", WT: "" },
       });
-
-      Toastify({
-        text: "Product added successfully!",
-        duration: 3000, // Duration in milliseconds
-        close: true, // Show close button
-        gravity: "top", // Position of the toast (top, bottom)
-        position: "center", // Position within the gravity (left, center, right)
-        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)", // Custom background color
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-      }).showToast();
+      console.log(totalProducts);
+      toast.success("Product added successfully!");
     } catch (error) {
       console.error("There was an error!", error);
 
-      Toastify({
-        text: "Fill all the details properly.",
-        duration: 3000, // Duration in milliseconds
-        close: true, // Show close button
-        gravity: "top", // Position of the toast (top, bottom)
-        position: "center", // Position within the gravity (left, center, right)
-        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)", // Custom background color
-        stopOnFocus: true, // Prevents dismissing of toast on hover
-      }).showToast();
+      toast.error(`Fill the form properly :${error}`);
     }
   };
 
